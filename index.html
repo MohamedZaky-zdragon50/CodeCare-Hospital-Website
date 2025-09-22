@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CodeCare Hospital</title>
+  <link rel="stylesheet" href="../Css/home.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="../JS/shared-search.js" defer></script>
+  <style>
+    /* Updated Navbar Styling */
+    .navx {
+      background-color: #FFFFFF;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      z-index: 999;
+      box-shadow: 0 4px 12px rgba(13, 110, 253, 0.1);
+      border-bottom: 1px solid #CCE5FF;
+      font-weight: 600;
+    }
+
+    .navbar {
+      max-width: 1300px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      gap: 20px;
+    }
+
+    .logo-container {
+      flex-shrink: 0;
+    }
+
+    .logo-container img {
+      height: 52px;
+      margin-left: 10px;
+      transition: opacity 0.3s ease;
+    }
+
+    .nav-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      flex-grow: 1;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 22px;
+      margin-top: -8px;
+    }
+
+    .nav-links li a {
+      text-decoration: none;
+      color: #343A40;
+      font-weight: 600;
+      font-size: 17px;
+      padding: 10px 0px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      background: transparent;
+      letter-spacing: 0.03em;
+    }
+
+    .nav-links li a::before {
+      content: "";
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background-color: #0D6EFD;
+      transition: width 0.3s ease-in-out;
+      border-radius: 4px;
+    }
+
+    .nav-links li a:hover::before {
+      width: 80%;
+    }
+
+    .nav-links li a:hover {
+      color: #0D6EFD;
+      background-color: rgba(13, 110, 253, 0.1);
+      box-shadow: 0 2px 6px rgba(13, 110, 253, 0.1);
+    }
+
+    /* Search Container */
+    .search-container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-top: 12px;
+      width: 220px;
+    }
+
+    .search-container input[type="search"] {
+      padding: 8px 36px 8px 12px;
+      border-radius: 20px;
+      border: 1.5px solid #0D6EFD;
+      font-size: 14px;
+      outline: none;
+      width: 100%;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      background-color: #FFFFFF;
+      color: #343A40;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+
+    .search-container input[type="search"]:focus {
+      border-color: #084298;
+      box-shadow: 0 0 6px #CCE5FF;
+    }
+
+    .search-container button.search-btn {
+      position: absolute;
+      right: 10px;
+      top: 19px;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      color: #0D6EFD;
+      user-select: none;
+      transition: color 0.3s ease;
+    }
+
+    .search-container button.search-btn:hover {
+      color: #084298;
+    }
+
+    .search-error {
+      font-size: 13px;
+      color: #DC3545;
+      font-weight: 600;
+      min-height: 18px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      margin-top: 6px;
+    }
+
+    .search-error.visible {
+      opacity: 1;
+    }
+
+    /* Dark Mode Toggle */
+    .dark-mode-switch {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .dark-mode-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .dark-mode-toggle .slider {
+      position: relative;
+      width: 80px;
+      height: 36px;
+      background-color: #eee;
+      border-radius: 18px;
+      transition: background-color 0.3s ease;
+      overflow: hidden;
+    }
+
+    .dark-mode-toggle .slider::before {
+      content: "";
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      top: 2px;
+      left: 2px;
+      background-color: #fff;
+      border-radius: 50%;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      transition: left 0.3s ease;
+    }
+
+    .dark-mode-toggle .slider i {
+      position: absolute;
+      top: 50%;
+      left: 11px;
+      transform: translateY(-50%);
+      font-size: 16px;
+      color: #666;
+      transition: left 0.3s ease, color 0.3s ease;
+    }
+
+    .switch-label {
+      font-size: 1rem;
+      color: #444;
+      transition: color 0.4s ease;
+    }
+
+    .dark-mode-toggle.active .slider {
+      background-color: #4a4a5e;
+    }
+
+    .dark-mode-toggle.active .slider::before {
+      left: 44px;
+    }
+
+    .dark-mode-toggle.active .slider i {
+      left: 51px;
+      color: #ffd700;
+    }
+
+    /* User Profile Styles */
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: -4px;
+    }
+
+    .profile-button {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      background: linear-gradient(to right, #ffffff, #f3faff);
+      border-radius: 40px;
+      box-shadow: 0 4px 14px rgba(0, 128, 202, 0.1);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid #e0f0ff;
+    }
+
+    .profile-button:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(to right, #e0f0ff, #ffffff);
+      box-shadow: 0 6px 18px rgba(0, 128, 202, 0.2);
+    }
+
+    .profile-icon {
+      width: 22px;
+      height: 22px;
+      transition: stroke 0.3s ease;
+    }
+
+    .profile-button:hover .profile-icon {
+      stroke: #1d4ed8;
+    }
+
+    .profile-label {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #333;
+      transition: color 0.3s ease;
+    }
+
+    .profile-button:hover .profile-label {
+      color: #1d4ed8;
+    }
+
+    .logout-btn {
+      padding: 6px 12px;
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .logout-btn:hover {
+      background-color: #c82333;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(220, 53, 69, 0.25);
+    }
+
+    /* Mobile Profile Styles */
+    .user-profile-mobile {
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px solid #e0f0ff;
+    }
+
+    .profile-info {
+      margin-bottom: 10px;
+      padding: 10px 15px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    .profile-label-mobile {
+      font-size: 16px;
+      font-weight: 600;
+      color: #0080ca;
+    }
+
+    .logout-btn-mobile {
+      width: 100%;
+      padding: 12px;
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .logout-btn-mobile:hover {
+      background-color: #c82333;
+      transform: translateY(-2px);
+    }
+    .auth-buttons {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .auth-btn {
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 16px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 80px;
+      font-family: inherit;
+    }
+
+    .login-btn {
+      background-color: transparent;
+      color: #0080ca;
+      border: 2px solid #0080ca;
+    }
+
+    .login-btn:hover {
+      background-color: #0080ca;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 128, 202, 0.25);
+    }
+
+    .signup-btn {
+      background-color: #0080ca;
+      color: white;
+      border: 2px solid #0080ca;
+    }
+
+    .signup-btn:hover {
+      background-color: #1d4ed8;
+      border-color: #1d4ed8;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(29, 78, 216, 0.35);
+    }
+
+    /* Mobile Menu Toggle */
+    .menu-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #0D6EFD;
+      user-select: none;
+      padding: 4px 8px;
+      transition: color 0.3s ease;
+    }
+
+    .menu-toggle:hover {
+      color: #084298;
+    }
+
+    /* Side Menu */
+    .side-menu {
+      position: fixed;
+      top: 70px;
+      right: -100%;
+      width: 260px;
+      background-color: #f9f9f9;
+      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.15);
+      padding: 20px;
+      transition: right 0.4s ease;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      border-radius: 0 0 12px 12px;
+    }
+    
+    .side-menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .side-menu ul li {
+      margin: 15px 0;
+    }
+
+    .side-menu ul li a {
+      display: block;
+      padding: 10px 15px;
+      color: #0D6EFD;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .side-menu ul li a:hover,
+    .side-menu ul li a:focus {
+      background-color: #e7f0ff;
+      color: #0a58ca;
+      box-shadow: inset 0 0 5px rgba(13, 110, 253, 0.2);
+      outline: none;
+    }
+
+    .side-menu.active {
+      right: 0;
+      display: flex;
+    }
+
+    .side-menu .auth-buttons {
+      margin-top: 20px;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .side-menu .auth-btn {
+      width: 100%;
+    }
+
+    /* Dark Mode Styles */
+    body, .container, .navx, .footer {
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    #logo, #navLogo {
+      transition: opacity 0.3s ease;
+    }
+
+    body.dark-mode {
+      background-color: #1e1e2f;
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .switch-label {
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .navx {
+      background-color: #2c2c3c;
+      border-bottom: 1px solid #444;
+    }
+
+    body.dark-mode .nav-links li a {
+      color: #fff;
+    }
+
+    body.dark-mode .nav-links li a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    body.dark-mode .search-container input[type="search"] {
+      background-color: #3a3a4a;
+      color: #fff;
+      border: 1px solid #666;
+    }
+
+    body.dark-mode .search-container .search-btn {
+      color: #fff;
+    }
+
+    body.dark-mode .login-btn {
+      background-color: transparent;
+      color: #66B2FF;
+      border-color: #66B2FF;
+    }
+
+    body.dark-mode .login-btn:hover {
+      background-color: #66B2FF;
+      color: #1e1e2f;
+    }
+
+    body.dark-mode .signup-btn {
+      background-color: #66B2FF;
+      color: #1e1e2f;
+      border-color: #66B2FF;
+    }
+
+    /* Dark Mode Profile Styles */
+    body.dark-mode .profile-button {
+      background: linear-gradient(to right, #2a2a2a, #1a1a1a);
+      border-color: #444;
+    }
+
+    body.dark-mode .profile-button:hover {
+      background: linear-gradient(to right, #3a3a3a, #2a2a2a);
+    }
+
+    body.dark-mode .profile-label {
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .profile-button:hover .profile-label {
+      color: #90c6ff;
+    }
+
+    body.dark-mode .profile-icon {
+      stroke: #66B2FF;
+    }
+
+    body.dark-mode .profile-button:hover .profile-icon {
+      stroke: #90c6ff;
+    }
+
+    body.dark-mode .profile-info {
+      background-color: #2a2a2a;
+    }
+
+    body.dark-mode .profile-label-mobile {
+      color: #66B2FF;
+    }
+
+    /* Login and Signup Buttons */
+
+    body.dark-mode .side-menu {
+      background-color: #2c2c3c;
+      box-shadow: -4px 0 12px rgba(255, 255, 255, 0.05);
+    }
+
+    body.dark-mode .side-menu ul li a {
+      color: #ffffff;
+    }
+
+    body.dark-mode .side-menu ul li a:hover,
+    body.dark-mode .side-menu ul li a:focus {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #90c6ff;
+    }
+
+    body.dark-mode section {
+      background: rgb(42, 42, 61) !important;
+    }
+
+    body.dark-mode .hero {
+      background: rgb(42, 42, 61) !important;
+    }
+
+    body.dark-mode .hero-text h1,
+    body.dark-mode .about-text h2,
+    body.dark-mode .intro-text h2,
+    body.dark-mode .services h2,
+    body.dark-mode .doctors h2,
+    body.dark-mode .lab-test-content h2,
+    body.dark-mode .testimonials-section h2,
+    body.dark-mode .faqs h2,
+    body.dark-mode #contact h2,
+    body.dark-mode .map-section h2,
+    body.dark-mode .text-center,
+    body.dark-mode .section-title {
+      color: #0080ca !important;
+    }
+
+    body.dark-mode .hero-text p,
+    body.dark-mode .about-text p,
+    body.dark-mode .content,
+    body.dark-mode .section-description,
+    body.dark-mode #contact p,
+    body.dark-mode .testimonial-text,
+    body.dark-mode .faq-item p {
+      color: #ccc;
+    }
+
+    body.dark-mode .service-box,
+    body.dark-mode .doctor-card,
+    body.dark-mode .testimonial-card,
+    body.dark-mode .faq-item {
+      background-color: #1f1f2e !important;
+      border-color: #333 !important;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+    }
+
+    body.dark-mode .service-box h3,
+    body.dark-mode .doctor-card h3,
+    body.dark-mode .testimonial-card h3,
+    body.dark-mode .faq-item h3 {
+      color: #0080ca !important;
+    }
+
+    body.dark-mode .doctor-card p {
+      color: #ccc !important;
+    }
+
+    body.dark-mode .doctor-card p strong {
+      color: #0080ca !important;
+    }
+
+    body.dark-mode .service-box p {
+      color: #ccc !important;
+    }
+
+    body.dark-mode .intro-text ul li {
+      background-color: #1f1f2e !important;
+      border-left: 4px solid #0080ca !important;
+      color: #ccc !important;
+    }
+
+    body.dark-mode .intro-text ul li:hover {
+      background-color: rgba(0, 128, 202, 0.1) !important;
+    }
+
+    body.dark-mode .contact-form input,
+    body.dark-mode .contact-form textarea {
+      background-color: #3a3a4a;
+      color: #fff;
+      border: 1px solid #666;
+    }
+
+    body.dark-mode .contact-form input:focus,
+    body.dark-mode .contact-form textarea:focus {
+      border-color: #0080ca;
+      box-shadow: 0 0 8px rgba(0, 128, 202, 0.3);
+    }
+
+    body.dark-mode .footer {
+      background-color: #222233;
+      color: #ccc;
+    }
+
+    body.dark-mode .footer a {
+      color: #aaa;
+    }
+
+    body.dark-mode .footer a:hover {
+      color: #fff;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+      
+      .nav-links, .auth-buttons {
+        display: none !important;
+      }
+
+      .search-container {
+        display: none;
+      }
+      
+      .navbar {
+        gap: 20px;
+      }
+      
+      .hero {
+        padding: 40px 20px;
+        margin-top: 120px;
+      }
+      
+      .hero-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .Hero-Button {
+        width: 100%;
+        margin-left: 0;
+      }
+      
+      section {
+        margin: 20px 10px;
+        padding: 40px 20px;
+      }
+      
+      .about-container,
+      .intro-content,
+      .services-content-wrapper,
+      .faqs-layout,
+      .lab-test-wrapper {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+      
+      .services-grid {
+        flex-direction: column;
+      }
+      
+      .faqs-image,
+      .faqs-content {
+        flex: 1 1 100%;
+        justify-content: center;
+      }
+      
+      .doctors-grid,
+      .doctor-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .testimonials-wrapper {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .testimonial-card {
+        max-width: 100%;
+      }
+      
+      .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+      }
+      
+      .footer-column {
+        margin-bottom: 20px;
+      }
+      
+      .contact-form input,
+      .contact-form textarea {
+        padding: 12px;
+      }
+      
+      h1, h2 {
+        font-size: 1.8rem !important;
+      }
+      
+      .hero-text h1 {
+        font-size: 2rem !important;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .side-menu {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="mainco">
+    <header class="navx">
+      <nav class="navbar">
+        <div class="logo-container">
+          <a href="./index.html">
+            <img id="navLogo" 
+                 src="../Images/logo-light.png" 
+                 data-light="../Images/logo-light.png"
+                 data-dark="../Images/logo-dark.png"
+                 alt="CodeCare Logo" />
+          </a>
+        </div>
+        
+        <ul class="nav-links">
+          <li><a href="./index.html">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="./Terms of Service.html">Services</a></li>
+          <li><a href="./Doctor Profiles.html">Our Doctors</a></li>
+        </ul>
+
+        <!-- Search Box -->
+        <div class="search-container">
+          <input type="search" id="search-input" placeholder="Enter Doctor's name..." aria-label="Search" />
+          <button aria-label="Search" class="search-btn" id="search-btn">🔍</button>
+          <div class="search-error" id="search-error"></div>
+        </div>
+
+        <!-- Dark Mode Toggle -->
+        <div class="dark-mode-switch">
+          <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">
+            <span class="slider">
+              <i class="fas fa-moon"></i>
+            </span>
+            <span class="switch-label">Dark Mode</span>
+          </button>
+        </div>
+
+        <!-- Login and Signup Buttons -->
+        <div class="auth-buttons" id="auth-buttons">
+          <a href="./login.html" class="auth-btn login-btn">Login</a>
+          <a href="./Register.html" class="auth-btn signup-btn">Sign Up</a>
+        </div>
+
+        <!-- User Profile Button (Hidden by default) -->
+        <div class="user-profile" id="user-profile" style="display: none;">
+          <div class="profile-button">
+            <svg xmlns="http://www.w3.org/2000/svg" class="profile-icon" viewBox="0 0 24 24" stroke-width="2" stroke="#0080ca" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="8" r="5" />
+              <path d="M20 21a8 8 0 0 0-16 0" />
+            </svg>
+            <span class="profile-label" id="profile-label">Welcome!</span>
+          </div>
+          <button class="logout-btn" id="logout-btn">Logout</button>
+        </div>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+
+        <!-- Side Menu -->
+        <div class="side-menu" id="side-menu">
+          <ul>
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="./Terms of Service.html">Services</a></li>
+            <li><a href="./Contact-us.html">Contact</a></li>
+          </ul>
+          <div class="auth-buttons" id="auth-buttons-mobile">
+            <a href="./login.html" class="auth-btn login-btn">Login</a>
+            <a href="./Register.html" class="auth-btn signup-btn">Sign Up</a>
+          </div>
+          <div class="user-profile-mobile" id="user-profile-mobile" style="display: none;">
+            <div class="profile-info">
+              <span class="profile-label-mobile" id="profile-label-mobile">Welcome!</span>
+            </div>
+            <button class="logout-btn-mobile" id="logout-btn-mobile">Logout</button>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="container hero-content">
+        <div class="hero-text">
+          <h1>Your Health is Our Commitment</h1>
+          <p>Receive world-class medical services delivered with empathy, innovation, and care. Schedule your appointment with our expert physicians today.</p>
+          <a href="./Booking Appointments.html" class="Hero-Button">Book Your Appointment</a>
+        </div>
+        <div class="hero-img">
+          <img src="../Images/Home/Hero Image.png" alt="Hero Image" style="height: 400px; width: 600px;" />
+        </div>
+      </div>
+    </section>
+
+    <section class="intro-video">
+      <div class="container intro-content">
+        <div class="intro-text">
+          <h2>Welcome to CodeCare Hospital</h2>
+          <p class="content">Explore our modern facilities, compassionate medical staff, and a full range of healthcare solutions. Discover why thousands trust CodeCare for their well-being.</p>
+          <ul>
+            <li>Cutting-edge diagnostic tools</li>
+            <li>Accredited medical professionals</li>
+            <li>Patient-first philosophy</li>
+          </ul>
+        </div>
+        <div class="intro-video-frame">
+          <video src="../Images/Home/Home .mp4" controls style="width: 450px;"></video>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="about-section">
+      <div class="container about-container">
+        <div class="about-image">
+          <img src="../Images/Home/About .png" alt="About CodeCare Hospital" class="about-image" />
+        </div>
+        <div class="about-text">
+          <h2>About Us</h2>
+          <p>
+            At CodeCare Hospital, we are committed to delivering premium healthcare services through state-of-the-art technology, experienced professionals, and a deep passion for healing. We strive to make quality care accessible to everyone.
+          </p>
+          <a href="#services" class="About-button">Discover More</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="location" class="map-section">
+      <div class="container">
+        <h2>Our Location</h2>
+        <div class="map-container">
+          <iframe
+            src="https://www.google.com/maps/embed?..."
+            width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade" title="CodeCare Hospital Location"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="services">
+      <div class="container text-center">
+        <h2>Our Services</h2>
+        <div class="services-content-wrapper">
+          <div class="services-grid">
+            <div class="services-left">
+              <div class="service-box">
+                <h3>General Health Check</h3>
+                <p>Comprehensive wellness exams and early detection services for a healthier life.</p>
+              </div>
+              <div class="service-box">
+                <h3>Cardiology</h3>
+                <p>Advanced heart care by renowned cardiologists using the latest techniques.</p>
+              </div>
+              <div class="service-box">
+                <h3>Pediatrics</h3>
+                <p>Complete pediatric care tailored to children and adolescents' needs.</p>
+              </div>
+            </div>
+            <div class="Services-image">
+              <img src="../Images/Home/services.png" alt="About CodeCare Hospital" />
+            </div>
+          </div>
+        </div>
+        <a href="./Terms of Service.html" class="Services-button">Browse All Services</a>
+      </div>
+    </section>
+
+    <section id="doctors" class="doctors">
+      <div class="container text-center">
+        <h2>Our Top Medical Experts</h2>
+        <div class="doctor-container doctors-grid">
+          <div class="doctor-card">
+            <a href="./Ruba.html">
+              <img src="../Images/Home/Rubaa .jpg" alt="Dr. Rubaa"></a>
+            <h3>Dr. Rubaa </h3>
+            <p><strong>Specialty:</strong> Pediatric Medicine</p>
+            <p><strong>Experience:</strong> Over 10 years of excellence</p>
+            <p><strong>Email:</strong> Rubaa72@codecare.com</p>
+          </div>
+          <div class="doctor-card">
+            <a href="./Zaky.html">
+              <img src="../Images/Zaky.jpeg" alt="Dr. Mohamed Zaky"></a>
+            <h3>Dr. Mohamed Zaky</h3>
+            <p><strong>Specialty:</strong> Cardiology</p>
+            <p><strong>Experience:</strong> 12+ years in the field</p>
+            <p><strong>Email:</strong> Mohamedzaky25@codecare.com</p>
+          </div>
+          <div class="doctor-card">
+            <a href="./Mostafa.html">
+              <img src="../Images/mostafa .jpg" alt="Dr. Mostafa Ashraf"></a>
+            <h3>Dr. Mostafa Ashraf</h3>
+            <p><strong>Specialty:</strong> Clinical Psychology</p>
+            <p><strong>Experience:</strong> 12 years</p>
+            <p><strong>Email:</strong> MostafaAshraf30@codecare.com</p>
+          </div>
+        </div>
+        <div class="button-wrapper">
+          <a href="./Doctor Profiles.html" class="Doctor-button">Explore Our Medical Team</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="lab-test-section">
+      <div class="lab-test-wrapper">
+        <div class="lab-test-content">
+          <h2 class="section-title">Book a Lab Test Easily</h2>
+          <p class="section-description">
+            Access fast, precise, and confidential laboratory testing. Schedule your tests online and avoid unnecessary delays.
+          </p>
+          <a href="./Lab Test Booking.html" class="Lab-button">Book Now</a>
+        </div>
+        <div class="lab-test-image">
+          <img src="../Images/Home/Lab Image .png" alt="Lab Test" />
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonials-section">
+      <div class="container">
+        <h2>What Our Patients Say</h2>
+        <div class="testimonials-wrapper">
+          <div class="testimonial-card">
+            <img src="../Images/Home/lady patient .jpg" alt="Patient 1" class="testimonial-img">
+            <h3>Sara Ahmed</h3>
+            <p>"The doctors and staff were incredibly professional and caring. I felt safe and well taken care of."</p>
+          </div>
+          <div class="testimonial-card">
+            <a href="./patient profile.html">
+              <img src="../Images/Patient Profile.jpg" alt="Patient 2" class="testimonial-img"></a>
+            <h3>Mahmoud Sallem</h3>
+            <p>"Excellent facilities and very friendly nurses. The appointment process was smooth and quick."</p>
+          </div>
+          <div class="testimonial-card">
+            <img src="../Images/Home/Youth Patient .jpg" alt="Patient 3" class="testimonial-img">
+            <h3>Ahmed Hassan</h3>
+            <p>"Highly recommend CodeCare! The cardiology department took great care of my heart condition."</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="faqs" style="padding: 80px 0;">
+      <div class="container">
+        <h2 class="text-center">Frequently Asked Questions</h2>
+        <div class="faqs-layout">
+          <div class="faqs-content">
+            <div class="faq-item">
+              <h3>What are your working hours?</h3>
+              <p>We are open 24/7 to provide you with emergency and general healthcare services.</p>
+            </div>
+            <div class="faq-item">
+              <h3>Do I need to book an appointment?</h3>
+              <p>Appointments are recommended for faster service, but we do accept walk-ins as well.</p>
+            </div>
+            <div class="faq-item">
+              <h3>Are your services covered by insurance?</h3>
+              <p>Yes, we accept most major insurance plans. Please contact us for more information.</p>
+            </div>
+            <div class="faq-item">
+              <h3>How do I contact a specific department?</h3>
+              <p>You can call our main line and request to be connected to the appropriate department.</p>
+            </div>
+          </div>
+          <div class="faqs-image">
+            <img src="../Images/Home/services (2).png" alt="FAQs Image" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <div class="container text-center">
+        <h2>Contact Us</h2>
+        <p>Need assistance or have questions? We're here to help. Send us a message and we'll get back to you shortly.</p>
+        <form class="contact-form">
+          <input type="text" placeholder="Your Name">
+          <input type="email" placeholder="Your Email">
+          <textarea rows="5" placeholder="Your Message"></textarea>
+          <button type="submit" class="contact-button">Send Message</button>
+        </form>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="./Contact-us.html">Contact Us</a></li>
+            <li><a href="./Terms of Service.html">Our Services</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Why CodeCare?</h3>
+          <p>
+            At <strong>CodeCare Hospital</strong>, we blend modern diagnostics, expert medical knowledge, and a human touch to deliver care that truly matters.
+          </p>
+        </div>
+        <div class="footer-column">
+          <h3>Get in Touch</h3>
+          <p>Email: info@codecarehospital.com</p>
+          <p>Phone: +20 100 000 0000</p>
+          <p>Address: Cairo, Egypt</p>
+          <div class="social">
+            <a href="https://www.facebook.com/lolazoda?locale=ar_AR">Facebook</a> |
+            <a href="https://github.com/MohamedZaky-zdragon50">GitHub</a> |
+            <a href="https://www.linkedin.com/in/mohamed-zaky-0130a52a8/">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Authentication State Management
+    function checkAuthState() {
+      const authButtons = document.getElementById('auth-buttons');
+      const authButtonsMobile = document.getElementById('auth-buttons-mobile');
+      const userProfile = document.getElementById('user-profile');
+      const userProfileMobile = document.getElementById('user-profile-mobile');
+      const profileLabel = document.getElementById('profile-label');
+      const profileLabelMobile = document.getElementById('profile-label-mobile');
+
+      // Check for user data in localStorage
+      const userData = localStorage.getItem('userData');
+      const userEmail = localStorage.getItem('userEmail');
+      const userName = localStorage.getItem('userName');
+      const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
+      if (isLoggedIn || userData || userEmail || userName) {
+        // User is logged in - hide auth buttons, show profile
+        if (authButtons) authButtons.style.display = 'none';
+        if (authButtonsMobile) authButtonsMobile.style.display = 'none';
+        if (userProfile) userProfile.style.display = 'flex';
+        if (userProfileMobile) userProfileMobile.style.display = 'block';
+
+        // Set welcome message
+        const welcomeMsg = userName ? `Welcome!` : 
+                          userEmail ? `Welcome!` : 'Welcome!';
+        if (profileLabel) profileLabel.textContent = welcomeMsg;
+        if (profileLabelMobile) profileLabelMobile.textContent = welcomeMsg;
+      } else {
+        // User is not logged in - show auth buttons, hide profile
+        if (authButtons) authButtons.style.display = 'flex';
+        if (authButtonsMobile) authButtonsMobile.style.display = 'flex';
+        if (userProfile) userProfile.style.display = 'none';
+        if (userProfileMobile) userProfileMobile.style.display = 'none';
+      }
+    }
+
+    // Logout functionality
+    function logout() {
+      // Clear all user data from localStorage
+      localStorage.removeItem('userData');
+      localStorage.removeItem('userEmail');
+      localStorage.removeItem('userName');
+      localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('userToken');
+      localStorage.removeItem('userSession');
+
+      // Show auth buttons, hide profile
+      checkAuthState();
+
+      // Optional: Show logout message
+      alert('You have been logged out successfully.');
+    }
+
+    // Dark Mode Toggle Functionality
+    document.addEventListener('DOMContentLoaded', () => {
+      // Check authentication state on page load
+      checkAuthState();
+
+      // Set up logout buttons
+      const logoutBtn = document.getElementById('logout-btn');
+      const logoutBtnMobile = document.getElementById('logout-btn-mobile');
+      
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', logout);
+      }
+      if (logoutBtnMobile) {
+        logoutBtnMobile.addEventListener('click', logout);
+      }
+
+      // Listen for storage changes (for multi-tab support)
+      window.addEventListener('storage', function(e) {
+        if (['userData', 'userEmail', 'userName', 'isLoggedIn'].includes(e.key)) {
+          checkAuthState();
+        }
+      });
+
+      const btn = document.getElementById('darkModeToggle');
+      const menuToggle = document.querySelector('.menu-toggle');
+      const sideMenu = document.getElementById('side-menu');
+      
+      if (!btn) return;
+
+      const icon = btn.querySelector('i');
+      const navLogo = document.getElementById('navLogo');
+
+      // Load saved dark mode preference
+      const wasDark = localStorage.getItem('darkMode') === 'enabled';
+      if (wasDark) {
+        document.body.classList.add('dark-mode');
+        btn.classList.add('active');
+        icon?.classList.replace('fa-moon', 'fa-sun');
+        if (navLogo && navLogo.dataset.dark) {
+          navLogo.src = navLogo.dataset.dark;
+        }
+      }
+
+      // Dark mode toggle event
+      btn.addEventListener('click', () => {
+        const isDark = document.body.classList.toggle('dark-mode');
+        btn.classList.toggle('active', isDark);
+        icon?.classList.replace(isDark ? 'fa-moon' : 'fa-sun', isDark ? 'fa-sun' : 'fa-moon');
+
+        if (navLogo) {
+          navLogo.style.opacity = '0';
+          setTimeout(() => {
+            if (isDark && navLogo.dataset.dark) {
+              navLogo.src = navLogo.dataset.dark;
+            } else if (!isDark && navLogo.dataset.light) {
+              navLogo.src = navLogo.dataset.light;
+            }
+            navLogo.style.opacity = '1';
+          }, 200);
+        }
+
+        localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+      });
+
+      // Mobile menu toggle
+      menuToggle?.addEventListener('click', () => {
+        sideMenu.classList.toggle('active');
+        menuToggle.textContent = sideMenu.classList.contains('active') ? '✖' : '☰';
+      });
+
+      // Close side menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (sideMenu && !sideMenu.contains(e.target) && menuToggle && !menuToggle.contains(e.target)) {
+          sideMenu.classList.remove('active');
+          if (menuToggle) menuToggle.textContent = '☰';
+        }
+      });
+
+      // Search functionality
+      const searchBtn = document.getElementById('search-btn');
+      const searchInput = document.getElementById('search-input');
+      const searchError = document.getElementById('search-error');
+      
+      searchBtn?.addEventListener('click', () => {
+        const query = searchInput.value.trim();
+        if (query) {
+          console.log('Searching for:', query);
+          // Add your search functionality here
+          searchError.textContent = '';
+          searchError.classList.remove('visible');
+        } else {
+          searchError.textContent = 'Please enter a search term';
+          searchError.classList.add('visible');
+        }
+      });
+
+      searchInput?.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          searchBtn.click();
+        }
+      });
+
+      searchInput?.addEventListener('input', () => {
+        if (searchError.classList.contains('visible')) {
+          searchError.classList.remove('visible');
+        }
+      });
+    });
+
+    // Smooth scrolling for anchor links
+    document.addEventListener('DOMContentLoaded', function() {
+      const links = document.querySelectorAll('a[href^="#"]');
+      
+      links.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          const targetId = this.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
+          
+          if (targetElement) {
+            const headerHeight = document.querySelector('.navx').offsetHeight;
+            const targetPosition = targetElement.offsetTop - headerHeight - 20;
+            
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+    });
+
+    // Form submission handling
+    document.addEventListener('DOMContentLoaded', function() {
+      const contactForm = document.querySelector('.contact-form');
+      
+      if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          // Get form data
+          const formData = new FormData(this);
+          const name = formData.get('name') || this.querySelector('input[type="text"]').value;
+          const email = formData.get('email') || this.querySelector('input[type="email"]').value;
+          const message = formData.get('message') || this.querySelector('textarea').value;
+          
+          // Simple validation
+          if (!name || !email || !message) {
+            alert('Please fill in all fields.');
+            return;
+          }
+          
+          // Simulate form submission
+          alert('Thank you for your message! We will get back to you soon.');
+          this.reset();
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>
